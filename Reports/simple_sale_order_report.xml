@@ -1,0 +1,117 @@
+<odoo>
+    <record id="simple_sale_order_report" model="ir.actions.report">
+        <field name="name">Simple Sale Order Report</field>
+        <field name="model">simple.sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_simple_sale_order" />
+        <field name="binding_type">report</field>
+        <field name="report_name">simple_sales_manager.simple_sale_order_report_template</field>
+    </record>
+
+ <template id="simple_sale_order_report_template">
+     <t t-call="web.html_container">
+     
+        <t t-foreach="docs" t-as="o">
+            <style>
+                table{
+                    width:100%;
+                    border:1px solid #b3adad;
+                    border-collapse:collapse;
+                    padding:5px;
+                }
+                table th{
+                    border:1px solid #b3adad;
+                    padding:5px;
+                    background:#f0f0f0;
+                    color:313030;
+
+                }
+                table td{
+                    border:1px solid #b3adad;
+                    text-algin:center;
+                    padding:5px;
+                    background:#fffffff;
+                    color:313030;
+                }
+            </style>
+            <h1 style="text-align: center;">Sipmle Sale Order Report</h1>
+            <br/>
+            <br/>
+            <table style="width: 80%; margin-bottom: 10px;">
+                <tr>
+                    <td>
+                        <label style="font-size: 25px;">Name : </label>
+                        <label style="font-size: 20px;"><span t-field="o.name"/></label>
+                    </td>
+                    <td style="text-align: right;">
+                        <label style="font-size: 25px;">Uesr : </label>
+                        <label style="font-size: 20px;"><span t-field="o.user_id"/></label>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+
+            <table style="width: 80%; margin-bottom: 10px;">
+                <tr>
+                    <td>
+                        <label style="font-size: 25px;">Customer : </label>
+                        <label style="font-size: 20px;"><span t-field="o.customer_id"/></label>
+                    </td>
+                    <td style="text-align: right;">
+                        <label style="font-size: 25px;">State : </label>
+                        <label style="font-size: 20px;"><span t-esc="o.state"/></label>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <table style="width: 80%; margin-bottom: 10px;">
+                <tr>
+                    <td>
+                        <label style="font-size: 25px;">Order Date : </label>
+                        <label style="font-size: 20px;"><span t-field="o.order_date"/></label>
+                    </td>
+                    <td style="text-align: right;">
+                        <label style="font-size: 25px;">Currency  : </label>
+                        <label style="font-size: 20px;"><span t-field="o.currency_id"/></label>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <div style="text-align: center;">
+            <label style="font-size: 25px;">Total Amount : </label>
+            <label style="font-size: 20px;"><span t-field="o.total_amount"/></label>
+            </div>
+            <br/>
+            <br/>
+            <table>
+                <thead>
+                    <th>Product</th>
+                    <th>Currency</th>
+                    <th>Quantity</th>
+                    <th>Price Unite</th>
+                    <th>Subtota</th>
+                </thead>
+                <tbody>
+                    <t t-foreach="o.line_ids" t-as="line">
+                    <tr>
+                        <td><span t-field="line.product_id"/></td>
+                        <td><span t-field="line.currency_id"/></td>
+                        <td><span t-field="line.quantity"/></td>
+                        <td><span t-field="line.price_unite"/></td>
+                        <td><span t-field="line.subtotal"/></td>
+                    </tr>
+                    </t>
+                </tbody>
+            </table>
+            
+    
+        </t>
+     </t>
+        
+       
+     
+ </template>
+</odoo>

@@ -1,0 +1,1 @@
+from . import simple_sale_order,sale_order_inherit
