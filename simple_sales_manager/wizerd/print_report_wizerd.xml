@@ -1,0 +1,33 @@
+<odoo>
+    <record id="print_report_wizerd_form" model="ir.ui.view">
+        <field name="name">Print Report Wizerd</field>
+        <field name="model">print.report.wizerd</field>
+        <field name="arch" type="xml">
+            <form>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button string="Pdf" type="object" name="action_confirm" class="btn-primary"/>
+                        <button string="excel" type="object" name="action_excel" class="btn-primary"/>
+                        <button string="List View" type="object" name="action_list_view" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="print_report_wizerd_action" model="ir.actions.act_window">
+        <field name="name">Pirnt Report wizerd</field>
+        <field name="res_model">print.report.wizerd</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem id="print_report_wizerd_menu"
+    name="Sales Simple Report"
+    parent="Reporting_root_menu"
+    action="print_report_wizerd_action"
+    />
+</odoo>

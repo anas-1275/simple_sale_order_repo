@@ -1,0 +1,18 @@
+<odoo>
+    <odoo>
+    <record id="sale_order_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="confirm_action_action" string="Confirm" type="object" class="btn=primary"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="open_records_action" string="Records" type="object" icon="fa-user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+</odoo>

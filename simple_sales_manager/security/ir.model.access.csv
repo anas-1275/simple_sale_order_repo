@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_simple_sale_order,access_simple_sale_order,model_simple_sale_order,simple_sale_order_manager_group,1,1,1,1
+access_simple_sale_order_user,access_simple_sale_order_user,model_simple_sale_order,simple_sale_order_user_group,1,0,0,0
+access_simple_sale_order_line_manager,access_simple_sale_order_line_manager,model_simple_sale_order_line,simple_sale_order_manager_group,1,1,1,1
+access_simple_sale_order_line_user,access_simple_sale_order_line_user,model_simple_sale_order_line,simple_sale_order_user_group,1,0,0,0
+access_print_report_wizerd,access_print_report_wizerd,model_print_report_wizerd,,1,1,1,1
+access_sale_order_inherit,access_sale_order_inherit,model_sale_order,,1,1,1,1
+

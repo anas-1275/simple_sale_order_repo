@@ -1,0 +1,14 @@
+<odoo>
+    <menuitem 
+    id="simple_sale_order_root_menu"
+    name="Simple Sales"
+    web_icon="simple_sales_manager,static/description/icon.png"
+    />
+    <menuitem 
+    id="Reporting_root_menu"
+    name="Reporting"
+    parent="simple_sale_order_root_menu"
+    groups="simple_sales_manager.simple_sale_order_manager_group"
+    sequence="20"
+    />
+</odoo>
