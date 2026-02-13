@@ -21,6 +21,7 @@ class SimpleSaleOrder(models.Model):
     
     currency_id = fields.Many2one(
         comodel_name='res.currency',
+        required=1
     )
     
     total_amount=fields.Monetary( compute='_compute_calculate_all_subtotal', currency_field='currency_id') #Monetary collects currency and money 
@@ -32,7 +33,7 @@ class SimpleSaleOrder(models.Model):
     
     note=fields.Text()
     
-    @api.depends('line_ids')
+    @api.depends('line_ids.subtotal')
     def _compute_calculate_all_subtotal(self):
         for rec in self:
             rec.total_amount=sum(rec.line_ids.mapped('subtotal'))
@@ -40,7 +41,7 @@ class SimpleSaleOrder(models.Model):
 
 
     _sql_constraints=[
-        ('unique_name','unique("name")','This Name Is Exist!')
+        ('unique_name','unique(name)','This Name Is Exist!')
     ]
 
     def draft_action(self):
@@ -62,9 +63,8 @@ class SimpleSaleOrder(models.Model):
 
 
     def create(self,vals):
-        res=super(SimpleSaleOrder,self).create(vals)
-        res.name=self.env['ir.sequence'].next_by_code('simple_sale_order_seq')
-        return res
+        vals['name']=self.env['ir.sequence'].next_by_code('simple_sale_order_seq')
+        return super().create(vals)
 
 
 
@@ -78,13 +78,13 @@ class SimpleSaleOrderLine(models.Model):
     order_id=fields.Many2one('simple.sale.order')
     
     product_id = fields.Many2one(
-        comodel_name='product.template',
-        ondelete='cascade',
+        comodel_name='product.product',
+        required=1,
     )
-    quantity=fields.Float()
-    price_unite=fields.Monetary(currency_field='currency_id')
+    quantity=fields.Float(required=1)
+    price_unite=fields.Monetary(currency_field='currency_id',required=1)
     currency_id=fields.Many2one('res.currency',related='order_id.currency_id' ,readonly=1)
-    subtotal=fields.Monetary(compute="_compute_calculate" ,currency_field='currency_id')
+    subtotal=fields.Monetary(compute="_compute_calculate" ,currency_field='currency_id',readonly=1)
 
 
     # @api.onchange('order_id','currency id')
