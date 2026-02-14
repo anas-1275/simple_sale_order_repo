@@ -15,8 +15,8 @@ class SaleOrder(models.Model):
     def confirm_action_action(self):
             self.logic_invisible_buttons = True
             action=self.env['ir.actions.actions']._for_xml_id('simple_sales_manager.simple_sale_order_action')
-            action['context'] ={'default_sale_order': self.id}
-            action['domain'] = [('sale_order_id', '=', self.id),]
+            view_id=self.env.ref('simple_sales_manager.simple_sale_order_view_form').id
+            action['views']=[[view_id,'form']]
             for rec in self:
                 existing_order = self.env['simple.sale.order'].search([('sale_order_id', '=', rec.id)], limit=1)
                 
@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
                             'price_unite': line.price_unit,
                         }))
                         
-                    self.env['simple.sale.order'].create({
+                    new_record =self.env['simple.sale.order'].create({
                         'customer_id': rec.partner_id.id,
                         'order_date': rec.date_order,
                         'user_id': rec.user_id.id,
@@ -39,7 +39,8 @@ class SaleOrder(models.Model):
                         'currency_id': rec.currency_id.id,
                         'line_ids': line_data
                     })
-            return action
+                    action['res_id'] = new_record.id
+                    return action
 
 
     def open_records_action(self):
