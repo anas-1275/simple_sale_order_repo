@@ -1,21 +1,22 @@
 <odoo>
-    <odoo>
+    
     <record id="sale_order_inherit" model="ir.ui.view">
         <field name="name">sale.order.inherit</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="confirm_action_action" string="Send Data To Simple Sale Order" type="object" class="btn-primary"/>
+                <field name="logic_invisible_buttons" invisible="1"/>
+                <button name="confirm_action_action" string="Send Data To Simple Sale Order" type="object" class="btn-primary" invisible="logic_invisible_buttons == True or state != 'sale'"/>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button class="oe_stat_button" name="open_records_action" string="Data In Simple Sale Order" type="object" icon="fa-user"/>
+                <button class="oe_stat_button" name="open_records_action" string="Data In Simple Sale Order" type="object" icon="fa-user" invisible="logic_invisible_buttons == False"/>
             </xpath>
             <xpath expr="//group[@name='order_details']//field[@name='payment_term_id']" position="after">
                 <field name="currency_id"/>
             </xpath>
         </field>
     </record>
-</odoo>
+
 
 </odoo>

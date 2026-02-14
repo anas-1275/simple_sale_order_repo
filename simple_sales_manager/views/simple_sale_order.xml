@@ -21,12 +21,12 @@
         <field name="model">simple.sale.order</field>
         <field name="arch" type="xml">
             <form>
+                                    <button name="draft_action" type="object" class="btn-primary" string="Draft" invisible="state == 'draft'"/>
+                                    <button name="confirmed_action" type="object" class="btn-primary" string="Confirmed" invisible="state == 'done' or state == 'confirmed'"/>
+                                    <button name="done_action" type="object" class="btn-primary" string="Done" invisible="state == 'draft' or state == 'done'"/>
+                                    <br/>
+                                    <br/>
                 <sheet>
-                    
-                    <button name="draft_action" type="object" class="btn-primary" string="Draft" invisible="state == 'draft'"/>
-                    <button name="confirmed_action" type="object" class="btn-primary" string="Confirmed" invisible="state == 'done' or state == 'confirmed'"/>
-                    <button name="done_action" type="object" class="btn-primary" string="Done" invisible="state == 'draft' or state == 'done'"/>
-                    
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
                     </header>
