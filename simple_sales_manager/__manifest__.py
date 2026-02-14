@@ -11,7 +11,7 @@
         'views\simple_sale_order.xml',
         'data\sequency.xml',
         'reports\simple_sale_order_report.xml',
-        'wizerd\print_report_wizerd.xml',
+        'wizard\print_report_wizerd.xml',
         'views\sale_order_inherit_view.xml',
 
 
