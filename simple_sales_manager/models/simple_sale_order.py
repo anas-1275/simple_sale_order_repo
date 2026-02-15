@@ -3,9 +3,10 @@ from odoo.exceptions import ValidationError,UserError
 
 class SimpleSaleOrder(models.Model):
     _name="simple.sale.order"
+    _inherit=['mail.thread','mail.activity.mixin']
 
     name=fields.Char(default="New" ,readonly=1)
-    user_id=fields.Many2one('res.users')
+    user_id=fields.Many2one('res.users',tracking=1)
     customer_id=fields.Many2one('res.partner')
     
     sale_order_id = fields.Many2one(
@@ -24,7 +25,7 @@ class SimpleSaleOrder(models.Model):
         required=1
     )
     
-    total_amount=fields.Monetary( compute='_compute_calculate_all_subtotal', currency_field='currency_id') #Monetary collects currency and money 
+    total_amount=fields.Monetary( compute='_compute_calculate_all_subtotal', currency_field='currency_id',tracking=1) #Monetary collects currency and money 
     
     line_ids = fields.One2many(
         comodel_name='simple.sale.order.line',
@@ -37,6 +38,11 @@ class SimpleSaleOrder(models.Model):
     def _compute_calculate_all_subtotal(self):
         for rec in self:
             rec.total_amount=sum(rec.line_ids.mapped('subtotal'))
+
+    def change_state_from_draft_to_confirm(self):
+        for rec in self:
+            if rec.state == 'draft':
+                rec.state = 'confirmed'
 
 
 

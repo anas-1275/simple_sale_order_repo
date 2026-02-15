@@ -2,7 +2,7 @@
     'name': "Simple Sales Manager",
     'author': "Anas ahmed",
     'category': '',
-    'depends': ['base','sale_management',
+    'depends': ['base','sale_management','mail'
         ],
     'data': [
         'security\security.xml',
